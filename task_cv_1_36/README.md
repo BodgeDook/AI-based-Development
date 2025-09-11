@@ -58,3 +58,9 @@ python main.py
 ```bash
 pip install opencv-python numpy
 ```
+
+Либо из файла requirements.txt с конкретными версиями библиотек:
+
+```bash
+pip install -r requirements.txt
+```
