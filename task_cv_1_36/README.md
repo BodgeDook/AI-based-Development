@@ -57,3 +57,4 @@ python main.py
 
 ```bash
 pip install opencv-python numpy
+```
