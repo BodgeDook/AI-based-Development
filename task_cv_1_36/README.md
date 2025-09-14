@@ -18,19 +18,19 @@
 Для запуска программы выполните команду со следующими аргументами:
 
 ```bash
-python main.py --input_image input.jpg --output_image output.png
+python make_object_mask.py --input_image input.jpg --output_image output.png
 ```
 
 Вы можете также выполнить запуск с минимальным набором (результат будет сохранён в файл output.png):
 
 ```bash
-python main.py --input_image input.jpg
+python make_object_mask.py --input_image input.jpg
 ```
 
 Если что-то непонятно, вы также имеете возможность узнать про аргументы функции через команду:
 
 ```bash
-python main.py --help
+python make_object_mask.py --help
 ```
 
 ## Как это работает:
