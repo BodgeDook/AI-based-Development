@@ -19,8 +19,8 @@
 
 ```bash
 python make_green_object_mask.py --input_image unmasked_green_object.jpg --output_image masked_green_object.png \
-			 	 --lower_hsv 30 40 60 25 30 0 \
-				 --upper_hsv 85 255 255 95 255 100
+                                 --lower_hsv 30 40 60 25 30 0 \
+                                 --upper_hsv 85 255 255 95 255 100
 ```
 
 --input_image — путь к исходному изображению.
