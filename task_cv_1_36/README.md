@@ -18,9 +18,9 @@
 Для запуска программы выполните команду со следующими аргументами:
 
 ```bash
-python make_object_mask.py --input_image unmasked_green_object.jpg --output_image masked_green_object.png \
-                           --lower_hsv 30 40 60 25 30 0 \
-                           --upper_hsv 85 255 255 95 255 100
+python make_green_object_mask.py --input_image unmasked_green_object.jpg --output_image masked_green_object.png \
+			 --lower_hsv 30 40 60 25 30 0 \
+                         --upper_hsv 85 255 255 95 255 100
 ```
 
 - аргументы --lower_hsv и --upper_hsv задают один или несколько диапазонов HSV для выделяемого цвета (каждый диапазон — 3 числа H S V).
@@ -29,7 +29,7 @@ python make_object_mask.py --input_image unmasked_green_object.jpg --output_imag
 Для справки об аргументах:
 
 ```bash
-python make_object_mask.py --help
+python make_green_object_mask.py --help
 ```
 
 ## Как это работает:
