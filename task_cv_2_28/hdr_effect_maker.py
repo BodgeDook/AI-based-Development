@@ -11,9 +11,6 @@ def load_test_image():
     
     Returns:
         np.ndarray: BGR image for OpenCV compatibility.
-    
-    Raises:
-        RuntimeError: If image loading fails.
     """
     try:
         img = data.astronaut()
@@ -29,14 +26,6 @@ def load_test_image():
 def create_exposures(img, alpha_dark=0.5, alpha_light=1.5):
     """
     Creates three exposure versions of the image: dark, normal, and light.
-    
-    Args:
-        img (np.ndarray): Input BGR image.
-        alpha_dark (float): Multiplier for dark exposure.
-        alpha_light (float): Multiplier for light exposure.
-    
-    Returns:
-        tuple: (dark, normal, light) images.
     """
     if img is None or not isinstance(img, np.ndarray):
         raise ValueError("Input image must be a valid numpy array.")
@@ -54,17 +43,6 @@ def create_exposures(img, alpha_dark=0.5, alpha_light=1.5):
 def combine_hdr(dark, normal, light, w_dark, w_normal, w_light):
     """
     Combines multiple exposure images into a single HDR-like effect.
-    
-    Args:
-        dark (np.ndarray): Dark exposure.
-        normal (np.ndarray): Normal exposure.
-        light (np.ndarray): Light exposure.
-        w_dark (float): Weight for dark exposure.
-        w_normal (float): Weight for normal exposure.
-        w_light (float): Weight for light exposure.
-    
-    Returns:
-        np.ndarray: Combined HDR-like image.
     """
     for img in (dark, normal, light):
         if img is None or not isinstance(img, np.ndarray):
@@ -78,32 +56,38 @@ def combine_hdr(dark, normal, light, w_dark, w_normal, w_light):
     return hdr
 
 
-def display_results(dark, normal, light, hdr):
+def display_results(original, dark, normal, light, hdr):
     """
-    Displays the different exposures and the HDR effect.
+    Displays the original image, exposures, and HDR effect.
     """
-    for name, img in zip(["dark", "normal", "light", "hdr"], [dark, normal, light, hdr]):
+    for name, img in zip(["original", "dark", "normal", "light", "hdr"], 
+                         [original, dark, normal, light, hdr]):
         if img is None or not isinstance(img, np.ndarray):
             raise ValueError(f"Image '{name}' is invalid or None.")
 
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(15, 6))
 
-    plt.subplot(1, 4, 1)
+    plt.subplot(1, 5, 1)
+    plt.imshow(cv2.cvtColor(original, cv2.COLOR_BGR2RGB))
+    plt.title("Original")
+    plt.axis("off")
+
+    plt.subplot(1, 5, 2)
     plt.imshow(cv2.cvtColor(dark, cv2.COLOR_BGR2RGB))
     plt.title("Dark")
     plt.axis("off")
 
-    plt.subplot(1, 4, 2)
+    plt.subplot(1, 5, 3)
     plt.imshow(cv2.cvtColor(normal, cv2.COLOR_BGR2RGB))
     plt.title("Normal")
     plt.axis("off")
 
-    plt.subplot(1, 4, 3)
+    plt.subplot(1, 5, 4)
     plt.imshow(cv2.cvtColor(light, cv2.COLOR_BGR2RGB))
     plt.title("Light")
     plt.axis("off")
 
-    plt.subplot(1, 4, 4)
+    plt.subplot(1, 5, 5)
     plt.imshow(cv2.cvtColor(hdr, cv2.COLOR_BGR2RGB))
     plt.title("HDR effect")
     plt.axis("off")
@@ -119,6 +103,7 @@ def parse_args():
     parser.add_argument("--alpha_dark", type=float, default=0.5, help="Brightness multiplier for dark exposure.")
     parser.add_argument("--alpha_light", type=float, default=1.5, help="Brightness multiplier for light exposure.")
     parser.add_argument("--output_image", type=str, default="output.png", help="File path to save HDR image.")
+    parser.add_argument("--output_original", type=str, default="original.png", help="File path to save original image.")
     return parser.parse_args()
 
 
@@ -135,14 +120,22 @@ def main():
         img = load_test_image()
         dark, normal, light = create_exposures(img, args.alpha_dark, args.alpha_light)
         hdr = combine_hdr(dark, normal, light, args.w_dark, args.w_normal, args.w_light)
-        display_results(dark, normal, light, hdr)
+        display_results(img, dark, normal, light, hdr)
+
+        # Save original
+        success_original = cv2.imwrite(args.output_original, img)
+        if success_original:
+            print(f"Original image saved as '{args.output_original}'")
+        else:
+            print(f"[ERROR] Failed to save original image to '{args.output_original}'")
 
         # Save HDR result
-        success = cv2.imwrite(args.output_image, hdr)
-        if success:
+        success_hdr = cv2.imwrite(args.output_image, hdr)
+        if success_hdr:
             print(f"HDR image saved as '{args.output_image}'")
         else:
             print(f"[ERROR] Failed to save HDR image to '{args.output_image}'")
+
     except Exception as e:
         print(f"[ERROR] {e}")
         sys.exit(1)
