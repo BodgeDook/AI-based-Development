@@ -66,7 +66,27 @@
 python hdr_effect_maker.py --w_dark 0.3 --w_normal 0.4 --w_light 0.3 \
                          --alpha_dark 0.6 --alpha_light 1.4 \
                          --output_image hdr_result.png
+```
 
 ## Требования:
 
-...
+Для работы скрипта необходимы следующие компоненты:
+
+- **Python 3.x** — интерпретатор Python версии 3 и выше.  
+- **OpenCV (opencv-python)** — библиотека для обработки изображений. 
+- **NumPy** (numpy) — библиотека для работы с массивами и математическими опера
+циями.  
+- **MatplotLib** (matplotlib) — библиотека для визуализации изображений и построения графиков.
+- **Scikit-Image (skimage)** — ресурс для загрузки тестового изображения (astronaut).
+
+Установить зависимости можно командой:
+
+```bash
+pip install opencv-python numpy matplotlib scikit-image
+```
+
+Либо из файла requirements.txt с конкретными версиями библиотек:
+
+```bash
+pip install -r requirements.txt
+```
