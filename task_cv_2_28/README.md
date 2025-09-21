@@ -68,6 +68,8 @@ python hdr_effect_maker.py --w_dark 0.3 --w_normal 0.4 --w_light 0.3 \
                          --output_image hdr_result.png
 ```
 
+---
+
 ## Требования:
 
 Для работы скрипта необходимы следующие компоненты:
