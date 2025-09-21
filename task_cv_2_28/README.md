@@ -60,7 +60,7 @@
 
 ---
 
-## Пример использования
+## Пример использования:
 
 ```bash
 python hdr_effect_maker.py --w_dark 0.3 --w_normal 0.4 --w_light 0.3 \
